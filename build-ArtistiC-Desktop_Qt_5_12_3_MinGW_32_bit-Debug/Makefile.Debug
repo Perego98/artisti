@@ -740,17 +740,7 @@ debug/grafici.o: ../ArtistiC/grafici.cpp ../ArtistiC/grafici.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtCore/qfiledevice.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtGui/qtouchdevice.h \
-		ui_grafici.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtCore/QVariant \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QApplication \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtCore/qeventloop.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtGui/qguiapplication.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtGui/qinputmethod.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QDialogButtonBox \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qdialogbuttonbox.h
+		ui_grafici.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\grafici.o ..\ArtistiC\grafici.cpp
 
 debug/main.o: ../ArtistiC/main.cpp ../ArtistiC/mainwindow.h \
@@ -1063,32 +1053,6 @@ debug/mainwindow.o: ../ArtistiC/mainwindow.cpp C:/Qt/5.12.3/mingw73_32/include/Q
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qtabbar.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qrubberband.h \
 		ui_mainwindow.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtCore/QVariant \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QApplication \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtCore/qeventloop.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtGui/qguiapplication.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtGui/qinputmethod.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qboxlayout.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qlayout.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QMenuBar \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qmenubar.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qmenu.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qaction.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QPushButton \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qpushbutton.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QSpacerItem \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QStatusBar \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qstatusbar.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QVBoxLayout \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QWidget \
 		../ArtistiC/splitfile.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtCore/QFile \
 		C:/Qt/5.12.3/mingw73_32/include/QtCore/QTextStream

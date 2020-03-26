@@ -1,17 +1,17 @@
 #ifndef DOWNLOAD_H
 #define DOWNLOAD_H
 
-#include <QCoreApplication>
-#include <QFile>
-#include <QFileInfo>
-#include <QList>
+
 #include <QNetworkAccessManager>
-#include <QNetworkRequest>
 #include <QNetworkReply>
-#include <QStringList>
-#include <QTimer>
 #include <QUrl>
 
+//#include <QFile>
+//#include <QFileInfo>
+//#include <QList>
+//#include <QStringList>
+//#include <QTimer>
+//#include <QNetworkRequest>
 
 #include <stdio.h>
 
