@@ -39,6 +39,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QListWidget *list1;
+    bool bt1_pressed;
+    bool bt2_pressed;
+    bool bt3_pressed;
 
 };
 #endif // MAINWINDOW_H

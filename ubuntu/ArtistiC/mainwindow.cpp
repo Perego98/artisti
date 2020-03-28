@@ -14,8 +14,8 @@
 #include "ui_mainwindow.h"
 
 #include "splitfile.h"
-#include "grafici1.h"
-#include "grafici2.h"
+#include "grafico1.h"
+#include "grafico2.h"
 #include "grafico.h"
 
 
@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , list1()
+    , bt1_pressed(false)
+    , bt2_pressed(false)
+    , bt3_pressed(false)
 {
     ui->setupUi(this);
     //QObject::connect(ui->pushButtonGrafico1, SIGNAL(on_pushButtonGrafico1_clicked()), ui->setupUi(this), SIGNAL(opernGrafici1()));
@@ -190,8 +193,10 @@ void MainWindow::on_pushButtonGrafico1_clicked()
     /*grafici1 sec;
     sec.setModal(true);
     sec.exec();*/
-    grafico *grf = new grafico();
-    grf->show();
+        grafico *grf;
+        grf = new grafico();
+        grf->show();
+        bt1_pressed = true;
 
     /*
     QBarSet *set0 = new QBarSet("Altuve");
@@ -347,13 +352,20 @@ void MainWindow::on_pushButtonGrafico1_clicked()
 
 void MainWindow::on_pushButton_grafico2_clicked()
 {
-    grafici2 sec;
-    sec.setModal(true);
-    sec.exec();
+        grafico2 *grf2;
+        grf2 = new grafico2();
+        grf2->show();
+        bt2_pressed = true;
 }
 
 
 void MainWindow::on_pushButtonGrafico2_clicked()
 {
+        grafico1 *grf1;
+        grf1 = new grafico1();
+        grf1->show();
+        bt3_pressed = true;
 
 }
+
+

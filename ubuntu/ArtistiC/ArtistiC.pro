@@ -20,24 +20,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     download.cpp \
     downloadfiles.cpp \
-    grafici1.cpp \
-    grafici2.cpp \
     grafico.cpp \
+    grafico1.cpp \
+    grafico2.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     download.h \
     downloadfiles.h \
-    grafici1.h \
-    grafici2.h \
     grafico.h \
+    grafico1.h \
+    grafico2.h \
     mainwindow.h
 
 FORMS += \
-    grafici1.ui \
-    grafici2.ui \
     grafico.ui \
+    grafico1.ui \
+    grafico2.ui \
     mainwindow.ui
 
 

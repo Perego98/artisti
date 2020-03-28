@@ -128,8 +128,11 @@ QChartView * grafico::createch(){
        QString name = line;
        name.remove(0,dim+3);
 
-       QChar carattere = name.at(0);
-       conta(carattere);
+       if(name.length()>0){
+           QChar carattere = name.at(0);
+           conta(carattere);
+       }
+
     }
 
     QChar let = 'a';
@@ -152,7 +155,7 @@ QChartView * grafico::createch(){
     chart->addSeries(series);
 
     // Set title
-    chart->setTitle("test");
+    chart->setTitle("EMI Artist");
 
 
     // Define starting animation
