@@ -43,5 +43,8 @@ private:
     bool bt2_pressed;
     bool bt3_pressed;
 
+public slots:
+    void loadFileTXT();
+
 };
 #endif // MAINWINDOW_H

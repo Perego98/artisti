@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
     //QObject::connect(ui->pushButtonGrafico1, SIGNAL(on_pushButtonGrafico1_clicked()), ui->setupUi(this), SIGNAL(opernGrafici1()));
 
 
+
+
+
     //File Name
     QString et1 = "List_of_EMI_artists.txt";
     QString et2 = "List_of_Universal_artists.txt";
@@ -47,9 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-
-
-
+/*
      try {
          manager = new download();
          manager->setTarget(etichetta1);
@@ -70,20 +71,23 @@ MainWindow::MainWindow(QWidget *parent)
          delete manager2;
          manager2 = nullptr;
      }
-
+*/
      //QObject::connect(&dl, SIGNAL(done()), &app, SLOT(quit()));
 
 
 
 }
 
+void MainWindow::loadFileTXT(){
+    QString et2 = "List_of_EMI_artists.txt";
+     QString et1 = "List_of_Universal_artists.txt";
+    set_listWidget_Universal_Artist(et2);
+    set_LabelEtichetta_EMI_Artist(et1);
+}
+
 MainWindow::~MainWindow()
 {
-    delete manager;
-    manager = nullptr;
-    delete manager2;
-    manager2 = nullptr;
-    delete ui;
+
 }
 
 void MainWindow::set_listWidget_Universal_Artist(const QString &path){

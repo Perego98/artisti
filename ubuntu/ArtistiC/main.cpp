@@ -41,9 +41,20 @@ int main(int argc, char *argv[])
 
 */
 
+
+
     MainWindow w;
 
+    downloadfiles managerD;
 
+    QObject::connect(&managerD, SIGNAL(done()), &w, SLOT(loadFileTXT()), Qt::QueuedConnection);
+
+
+    QTimer::singleShot(0, &managerD, SLOT(execute()));
+
+
+
+    //QObject::connect(&managerD, SIGNAL(done()), &w, SIGNAL(loadFileTXT()));
     w.set_listWidget_Universal_Artist(et2);
     w.set_LabelEtichetta_EMI_Artist(et1);
 
