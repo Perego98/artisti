@@ -6,6 +6,8 @@ grafici2::grafici2(QWidget *parent) :
     ui(new Ui::grafici2)
 {
     ui->setupUi(this);
+
+
 }
 
 grafici2::~grafici2()

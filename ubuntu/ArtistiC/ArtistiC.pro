@@ -1,5 +1,6 @@
-QT       += core gui
+QT += core gui
 QT += network widgets
+QT += charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,6 +22,7 @@ SOURCES += \
     downloadfiles.cpp \
     grafici1.cpp \
     grafici2.cpp \
+    grafico.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -29,12 +31,15 @@ HEADERS += \
     downloadfiles.h \
     grafici1.h \
     grafici2.h \
+    grafico.h \
     mainwindow.h
 
 FORMS += \
     grafici1.ui \
     grafici2.ui \
+    grafico.ui \
     mainwindow.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

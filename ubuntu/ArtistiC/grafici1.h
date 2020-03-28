@@ -2,6 +2,8 @@
 #define GRAFICI1_H
 
 #include <QDialog>
+#include <QtWidgets/QWidget>
+#include <QtCharts/QChartGlobal>
 
 namespace Ui {
 class grafici1;

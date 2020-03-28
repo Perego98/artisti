@@ -21,7 +21,8 @@ private:
     //download* manager;
 
     // ELIMINARE
-    downloadfiles* manager;
+     download * manager;
+     download * manager2;
 
     Q_OBJECT
 public:
@@ -32,6 +33,8 @@ public:
 private slots:
     void on_pushButtonGrafico1_clicked();
     void on_pushButton_grafico2_clicked();
+
+    void on_pushButtonGrafico2_clicked();
 
 private:
     Ui::MainWindow *ui;

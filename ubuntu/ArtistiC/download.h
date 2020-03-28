@@ -2,9 +2,11 @@
 #define DOWNLOAD_H
 
 
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QUrl>
+//#include <QNetworkAccessManager>
+//#include <QNetworkReply>
+//#include <QUrl>
+//#include <QFile>
+//#include <QDebug>
 
 //#include <QFile>
 //#include <QFileInfo>
@@ -13,22 +15,48 @@
 //#include <QTimer>
 //#include <QNetworkRequest>
 
+#include <QObject>
+#include <QString>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QNetworkReply>
+#include <QLabel>
+#include <QCoreApplication>
+#include <QUrl>
+#include <QFile>
+#include <QDebug>
+
 #include <stdio.h>
 
 class download : public QObject{
 
     Q_OBJECT
-    QNetworkAccessManager NetworkManager;
-    QList<QNetworkReply *> currDownload;
+
+private:
+    QNetworkAccessManager manager;
+    QNetworkReply* reply;
+    QString file_name;
+    QUrl target;
+
+     void connectSignalsAndSlots();
+
 
 public:
-    download();
-    void startDownload(const QUrl &url);
-    QString createFileName(const QUrl &url);
-    bool saveFile(const QString &filename, QIODevice *data);
+    explicit download();
+     download(const QString&);
+    ~download();
+
+    void setTarget(const QUrl& t);
+    void setFileName(const QString& fn);
+
+
+signals:
+    void done();
 
 public slots:
-    void downloadFinish(QNetworkReply *reply);
+    void downloadstr();
+    void downloadFinished(QNetworkReply* data);
+    void downloadProgress(qint64 recieved, qint64 total);
 
 };
 

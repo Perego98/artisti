@@ -1,29 +1,37 @@
 #include "downloadfiles.h"
-
+#include <QCoreApplication>
+#include <QUrl>
+#include <QNetworkRequest>
 #include <QFile>
+#include <QDebug>
 
-downloadfiles::downloadfiles(QString &file_name) :  QObject(0), reply(nullptr) {
-    QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(downloadFinished(QNetworkReply*, file_name)));
+downloadfiles::downloadfiles() : QObject(0) {
+    QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(downloadFinished(QNetworkReply*)));
 }
-
 
 downloadfiles::~downloadfiles() {
 
 }
 
 
-void downloadfiles::downloadFinished(QNetworkReply *data, QString &file_name) {
-    QFile localFile(file_name);
+void downloadfiles::setTarget(const QString &t) {
+    this->target = t;
+}
+
+void downloadfiles::downloadFinished(QNetworkReply *data) {
+    QFile localFile("downloadedfile");
     if (!localFile.open(QIODevice::WriteOnly))
         return;
     const QByteArray sdata = data->readAll();
     localFile.write(sdata);
     qDebug() << sdata;
     localFile.close();
+
+    emit done();
 }
 
-void downloadfiles::download(const QString &_url) {
-    QUrl url = QUrl::fromEncoded(_url.toLocal8Bit());
+void downloadfiles::download() {
+    QUrl url = QUrl::fromEncoded(this->target.toLocal8Bit());
     QNetworkRequest request(url);
     QObject::connect(manager.get(request), SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(downloadProgress(qint64,qint64)));
 

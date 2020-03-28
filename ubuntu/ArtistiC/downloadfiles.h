@@ -1,25 +1,26 @@
-#ifndef DOWNLOADFILES_H
-#define DOWNLOADFILES_H
+#include <QObject>
+#include <QString>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
 
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QUrl>
 
-class downloadfiles : public QObject
-{
-private:
+class downloadfiles : public QObject {
     Q_OBJECT
-    QNetworkAccessManager manager;
-    QList<QNetworkReply *> currDownload;
-    QNetworkReply *reply;
-
-
 public:
-    downloadfiles(QString &file_name);
+    explicit downloadfiles();
     ~downloadfiles();
-    void downloadFinished(QNetworkReply *data,  QString &file_name);
-    void download(const QString &_url);
+
+    void setTarget(const QString& t);
+
+private:
+    QNetworkAccessManager manager;
+    QString target;
+
+signals:
+    void done();
+
+public slots:
+    void download();
+    void downloadFinished(QNetworkReply* data);
     void downloadProgress(qint64 recieved, qint64 total);
 };
-
-#endif // DOWNLOADFILES_H
