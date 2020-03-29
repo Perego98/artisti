@@ -1,19 +1,9 @@
 #include<QLabel>
 
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QMainWindow>
-#include <QtCharts/QChartView>
-#include <QtCharts/QBarSeries>
-#include <QtCharts/QBarSet>
-#include <QtCharts/QLegend>
-#include <QtCharts/QBarCategoryAxis>
-#include <QtCharts/QValueAxis>
-#include<QtCharts>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "splitfile.h"
 #include "grafico.h"
 #include "grafico1.h"
 #include "grafico2.h"

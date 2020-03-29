@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "splitfile.h"
 #include "downloadfiles.h"
 
 #include <QApplication>
