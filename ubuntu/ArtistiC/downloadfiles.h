@@ -20,11 +20,11 @@ public:
     ~downloadfiles();
     void doDownload(const QUrl &url);
     static QString saveFileName(const QUrl &url);
-    bool saveToDisk(const QString &filename, QIODevice *data);
+    bool saveFile(const QString &filename, QIODevice *data);
     static bool isHttpRedirect(QNetworkReply *reply);
 
 public slots:
-    void execute();
+    void download();
     void downloadFinished(QNetworkReply *reply);
     void sslErrors(const QList<QSslError> &errors);
 

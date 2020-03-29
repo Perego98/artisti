@@ -1,6 +1,6 @@
 #include "mainwindow.h"
-#include "download.h"
 #include "splitfile.h"
+#include "downloadfiles.h"
 
 #include <QApplication>
 
@@ -9,54 +9,20 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
-    //File Name
-   QString et2 = "List_of_EMI_artists.txt";
-    QString et1 = "List_of_Universal_artists.txt";
-
-/*     //url
-    QString etichetta1("http://www.ivl.disco.unimib.it/minisites/cpp/List_of_Universal_artists.txt");
-    QString etichetta2("http://www.ivl.disco.unimib.it/minisites/cpp/List_of_EMI_artists.txt");
-
-    download * manager;
-    try {
-        manager = new download();
-        manager->setTarget(etichetta1);
-        manager->setFileName(et1);
-        manager->downloadstr();
-    } catch (...) {
-        delete manager;
-        manager = nullptr;
-    }
-
-    download * manager2;
-    try {
-        manager2 = new download(et2);
-        manager2->setTarget(etichetta2);
-        //manager2->setFileName(et2);
-        manager2->downloadstr();
-    } catch (...) {
-        delete manager2;
-        manager2 = nullptr;
-    }
-
-*/
-
-
-
     MainWindow w;
 
+    // creo un oggetto downloadfiles che
+    // si collegherà  e scaricherà i file
     downloadfiles managerD;
 
+    // collego il segnale done, lanciato alla fine dei download
+    // con il metodo loadFileTXT della mainWindow,
+    // cosi caricherò il file di testo solo una volta che sono sicuro sia stato scaricato
     QObject::connect(&managerD, SIGNAL(done()), &w, SLOT(loadFileTXT()), Qt::QueuedConnection);
 
+    // faccio partirte il download
+    QTimer::singleShot(0, &managerD, SLOT(download()));
 
-    QTimer::singleShot(0, &managerD, SLOT(execute()));
-
-
-
-    //QObject::connect(&managerD, SIGNAL(done()), &w, SIGNAL(loadFileTXT()));
-    w.set_listWidget_Universal_Artist(et2);
-    w.set_LabelEtichetta_EMI_Artist(et1);
 
     w.show();
     return a.exec();

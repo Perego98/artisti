@@ -20,7 +20,7 @@ public:
 private:
     Ui::grafico1 *ui;
     QChartView * createch();
-    void conta(QChar val);
+    void conta(QChar &val);
     int count[27];// la prima cella è per tutti i caratteri che non sono lettere
 };
 

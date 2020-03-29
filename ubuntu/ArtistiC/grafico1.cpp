@@ -1,6 +1,8 @@
 #include "grafico1.h"
 #include "ui_grafico1.h"
 
+#include <iostream>
+
 grafico1::grafico1(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::grafico1)
@@ -20,68 +22,90 @@ QChartView * grafico1::createch(){
     QString et2 = "List_of_Universal_artists.txt";
     QFile file(et2);
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return nullptr;// ECCEZIONE?
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        std::cout << "Non riesco ad aprire " << qPrintable(et2)
+                  << " errore: "<< qPrintable(file.errorString()) << std::endl;
+        return nullptr;
+    }
 
-    QTextStream in(&file);
+        QTextStream in(&file);
+
+
+    // fino a che non finisco il file leggo riga per riga
     while (!in.atEnd()) {
        QString line = in.readLine();
 
+       // trovo la lunghezza del link
        QString link = line.section('"', 1, 1);
        int dim = link.size();
 
+       // tolgo tutto ciò che non è il nome
        QString name = line;
        name.remove(0,dim+3);
 
+        // se il nome è presente
        if(name.length()>0){
+
+          // while(name.at(0) == ' ')
+           //    name.remove(0,1);
+
+           // prendo ilprimo carattere e richiamo conta
            QChar carattere = name.at(0);
            conta(carattere);
        }
 
     }
 
+    // lettera di partenza
     QChar let = 'a';
-    // popolo i set
 
+    // creo il set con nome lettere
     QBarSet *set = new QBarSet("lettere");
 
+    // inserisco i valori per ogni lettera
+    // in prima posizione in realtà ci sono tutti i carateri
+    // che non sono lettere che chiamerò per semplicità, numeri
     for (int i =0;i<27;i++) {
         int value = count[i];
         *set << value;
     }
 
 
-
+    //creo le series
     QBarSeries *series = new QBarSeries();
+
+    // aggiungo i set creati in precedenza
     series->append(set);
+
+    // creo un chart
     QChart *chart = new QChart();
 
-    // Add the chart
+    // aggiongo il chart
     chart->addSeries(series);
 
-    // Set title
+    // Setto il titolo
     chart->setTitle("Universal Artist");
 
 
-    // Define starting animation
-    // NoAnimation, GridAxisAnimations, SeriesAnimations
+    // Definizione animazioni
     chart->setAnimationOptions(QChart::AllAnimations);
 
     // Holds the category titles
     QStringList categories;
     QChar cat;
 
+    // inserisco i nomi di ogni barra
     categories << "Numeri";
     for (int i =1;i<27;i++) {
         cat = let.unicode()+(i-1);
         categories << cat;
     }
 
+    // creo e setto gli assi
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     axis->append(categories);
     chart->createDefaultAxes();
 
-    // 1. Bar chart
     chart->setAxisX(axis, series);
 
     chart->legend()->setVisible(true);
@@ -92,15 +116,14 @@ QChartView * grafico1::createch(){
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
 
-
-    // Used to change the palette
+    // cambio palette
     QPalette pal = qApp->palette();
 
-    // Change the color around the chart widget and text
+    // cambio ilcolore attorno il chart e il testo
     pal.setColor(QPalette::Window, QRgb(0xffffff));
     pal.setColor(QPalette::WindowText, QRgb(0x404044));
 
-    // Apply palette changes to the application
+    // applico i cambiamenti
     qApp->setPalette(pal);
 
     return chartView;
@@ -108,13 +131,17 @@ QChartView * grafico1::createch(){
 }
 
 // valore piccolo posso passarlo per copia
-void grafico1::conta(QChar val){
+void grafico1::conta(QChar &val){
+    // trasformo il carattere in unicode e ne faccio il casting in intero
     int code = (int)val.unicode();
+
+    // controllo che non sia nei range delle lettere minuscole e maiuscole
+    // se non è li allora aumento il valore della prima cella che conta tutti i caratteri diversi dalle lettere
     if((code<65 || (code>90 && code<97) || code>122))
             count[0]++;
-    else if(code>=65 && code<=90)
+    else if(code>=65 && code<=90)// conto cercando tra le lettere maiuscole
         count[(code-64)]++;
-    else if(code>=97 && code<=122)
+    else if(code>=97 && code<=122) // conto cercando tra le lettere minuscole
         count[(code-64-32)]++;
 }
 

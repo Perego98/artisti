@@ -4,6 +4,7 @@
 #include <QNetworkRequest>
 #include <QFile>
 #include <QDebug>
+#include <iostream>
 
 downloadfiles::downloadfiles(){
     connect(&manager, SIGNAL(finished(QNetworkReply*)),
@@ -23,6 +24,9 @@ void downloadfiles::doDownload(const QUrl &url)
     currentDownloads.append(reply);
 }
 
+
+// trova il nome del file dall'indirizzo url
+// se esiste di gia lo elimino
 QString downloadfiles::saveFileName(const QUrl &url)
 {
     QString path = url.path();
@@ -31,31 +35,32 @@ QString downloadfiles::saveFileName(const QUrl &url)
     if (basename.isEmpty())
         basename = "download.txt";
 
+    // se il file esiste di già lo elimino
+    // nel caso il nuovo file sia una versione aggiornata
     if (QFile::exists(basename)) {
-       /* // already exists, don't overwrite
-        int i = 0;
-        basename += '.';
-        while (QFile::exists(basename + QString::number(i)))
-            ++i;
-
-        basename += QString::number(i);*/
         QFile::remove(basename);
     }
 
     return basename;
 }
 
-bool downloadfiles::saveToDisk(const QString &filename, QIODevice *data)
+// salva il file
+bool downloadfiles::saveFile(const QString &filename, QIODevice *data)
 {
     QFile file(filename);
+
+    // se non riesco ad aprire il file in sola scrittura
+    // stampo messaggio di errore e ritorno false
     if (!file.open(QIODevice::WriteOnly)) {
-        fprintf(stderr, "Could not open %s for writing: %s\n",
-                qPrintable(filename),
-                qPrintable(file.errorString()));
+        std::cout << "Non riesco ad aprire" << qPrintable(filename)
+                  << "per la scrittura:" << qPrintable(file.errorString()) << std::endl;
         return false;
     }
 
+    // scrivo su file
     file.write(data->readAll());
+
+    // una volta finito chiudo il file
     file.close();
 
     return true;
@@ -68,24 +73,12 @@ bool downloadfiles::isHttpRedirect(QNetworkReply *reply)
            || statusCode == 305 || statusCode == 307 || statusCode == 308;
 }
 
-void downloadfiles::execute()
+void downloadfiles::download()
 {
-    /*QStringList args = QCoreApplication::instance()->arguments();
-    args.takeFirst();           // skip the first argument, which is the program's name
-    if (args.isEmpty()) {
-        printf("Qt Download example - downloads all URLs in parallel\n"
-               "Usage: download url1 [url2... urlN]\n"
-               "\n"
-               "Downloads the URLs passed in the command-line to the local directory\n"
-               "If the target file already exists, a .0, .1, .2, etc. is appended to\n"
-               "differentiate.\n");
-        QCoreApplication::instance()->quit();
-        return;
-    }*/
-
     QUrl etichetta1("http://www.ivl.disco.unimib.it/minisites/cpp/List_of_Universal_artists.txt");
     QUrl etichetta2("http://www.ivl.disco.unimib.it/minisites/cpp/List_of_EMI_artists.txt");
-        //QUrl url = QUrl::fromEncoded(arg.toLocal8Bit());
+
+    // faccio partire i download dei due file, prima uno e una volta finito parte il secondo
     doDownload(etichetta1);
     doDownload(etichetta2);
 
@@ -96,7 +89,7 @@ void downloadfiles::sslErrors(const QList<QSslError> &sslErrors)
 {
 #if QT_CONFIG(ssl)
     for (const QSslError &error : sslErrors)
-        fprintf(stderr, "SSL error: %s\n", qPrintable(error.errorString()));
+        std::cout << "Errore SSL: " << qPrintable(error.errorString()) << std::endl;
 #else
     Q_UNUSED(sslErrors);
 #endif
@@ -107,17 +100,17 @@ void downloadfiles::downloadFinished(QNetworkReply *reply)
 {
     QUrl url = reply->url();
     if (reply->error()) {
-        fprintf(stderr, "Download of %s failed: %s\n",
-                url.toEncoded().constData(),
-                qPrintable(reply->errorString()));
+        std::cout << "Download di " << url.toEncoded().constData()
+                  << " fallito: " << qPrintable(reply->errorString()) << std::endl;
+
     } else {
         if (isHttpRedirect(reply)) {
-            fputs("Request was redirected.\n", stderr);
+            std::cout << "Richiesta reindirizzata" << std::endl;
         } else {
             QString filename = saveFileName(url);
-            if (saveToDisk(filename, reply)) {
-                printf("Download of %s succeeded (saved to %s)\n",
-                       url.toEncoded().constData(), qPrintable(filename));
+            if (saveFile(filename, reply)) {
+                std::cout << "Il download di " << url.toEncoded().constData()
+                          << " e' stato effettuato, salvato in " << qPrintable(filename) << std::endl;
             }
         }
     }
@@ -126,8 +119,9 @@ void downloadfiles::downloadFinished(QNetworkReply *reply)
     reply->deleteLater();
 
     if (currentDownloads.isEmpty()) {
-        // all downloads finished
-        //QCoreApplication::instance()->quit();
+        // quando tutti i download sono finiti emetto il segnale done()
+        // che servirà per poter lanciare altri comandi una volta
+        //che il download dei file sarà finito
         emit done();
     }
 }

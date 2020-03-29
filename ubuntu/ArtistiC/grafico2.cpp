@@ -1,6 +1,8 @@
 #include "grafico2.h"
 #include "ui_grafico2.h"
 
+#include <iostream>
+
 grafico2::grafico2(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::grafico2)
@@ -16,9 +18,13 @@ QChartView * grafico2::createch(){
     QFile file(et2);
     int EMI=0, Universal=0;
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return nullptr;// ECCEZIONE?
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        std::cout << "Non riesco ad aprire " << qPrintable(et2)
+                  << " errore: "<< qPrintable(file.errorString()) << std::endl;
+        return nullptr;
+    }
 
+    // leggo e conto ogni riga di Universal artist
     QTextStream in(&file);
     while (!in.atEnd()) {
        QString line = in.readLine();
@@ -26,9 +32,14 @@ QChartView * grafico2::createch(){
     }
 
     QFile file2(et1);
-    if (!file2.open(QIODevice::ReadOnly | QIODevice::Text))
-        return nullptr;// ECCEZIONE?
 
+    if (!file2.open(QIODevice::ReadOnly | QIODevice::Text)){
+        std::cout << "Non riesco ad aprire " << qPrintable(et1)
+                  << " errore: "<< qPrintable(file.errorString()) << std::endl;
+        return nullptr;
+    }
+
+        // leggo e conto ogni riga di EMI artist
     QTextStream in2(&file2);
     while (!in2.atEnd()) {
        QString line = in2.readLine();
@@ -37,28 +48,25 @@ QChartView * grafico2::createch(){
 
 
 
+    // creo il grafico
     QBarSet *set = new QBarSet("numero artisti");
     *set << EMI << Universal;
-
-
 
 
     QBarSeries *series = new QBarSeries();
     series->append(set);
     QChart *chart = new QChart();
 
-    // Add the chart
+    // aggiungo chart
     chart->addSeries(series);
 
-    // Set title
+    // Setto il titolo
     chart->setTitle("test");
 
 
-    // Define starting animation
-    // NoAnimation, GridAxisAnimations, SeriesAnimations
+    // Definisco l'aimazione iniziale
     chart->setAnimationOptions(QChart::AllAnimations);
 
-    // Holds the category titles
     QStringList categories;
 
     categories << "EMI Artist" << "Universal Artist";
@@ -68,14 +76,12 @@ QChartView * grafico2::createch(){
     axis->append(categories);
     chart->createDefaultAxes();
 
-    // 1. Bar chart
     chart->setAxisX(axis, series);
 
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignBottom);
 
-    // Used to display the chart
-    //QChartView *chartView = new QChartView(chart);
+    // lo uso per mostrare il chart
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
 
@@ -83,11 +89,11 @@ QChartView * grafico2::createch(){
     // Used to change the palette
     QPalette pal = qApp->palette();
 
-    // Change the color around the chart widget and text
+    // cambio il colore attorno al chart e del testo
     pal.setColor(QPalette::Window, QRgb(0xffffff));
     pal.setColor(QPalette::WindowText, QRgb(0x404044));
 
-    // Apply palette changes to the application
+    // applico i cambiamenti
     qApp->setPalette(pal);
 
     return chartView;
