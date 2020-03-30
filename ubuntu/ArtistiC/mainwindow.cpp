@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     , list1()
 {
     ui->setupUi(this);
+
 }
 
 void MainWindow::loadFileTXT(){
@@ -22,11 +23,24 @@ void MainWindow::loadFileTXT(){
      QString et1 = "List_of_Universal_artists.txt";
     set_listWidget_Universal_Artist(et2);
     set_LabelEtichetta_EMI_Artist(et1);
+    set_button_active();
 }
 
 MainWindow::~MainWindow()
 {
 
+}
+
+void MainWindow::set_button_no_active(){
+ui->pushButtonGrafico1->setVisible(false);
+ui->pushButtonGrafico2->setVisible(false);
+ui->pushButton_grafico2->setVisible(false);
+}
+
+void MainWindow::set_button_active(){
+ui->pushButtonGrafico1->setVisible(true);
+ui->pushButtonGrafico2->setVisible(true);
+ui->pushButton_grafico2->setVisible(true);
 }
 
 void MainWindow::set_listWidget_Universal_Artist(const QString &path){

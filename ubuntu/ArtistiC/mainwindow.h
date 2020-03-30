@@ -20,6 +20,9 @@ public:
     ~MainWindow();
     void set_listWidget_Universal_Artist(const QString &path);
     void set_LabelEtichetta_EMI_Artist(const QString &path);
+    void set_button_no_active();
+    void set_button_active();
+
 private slots:
     void on_pushButtonGrafico1_clicked();
     void on_pushButton_grafico2_clicked();

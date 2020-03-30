@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     MainWindow w;
+    w.set_button_no_active();
 
     // creo un oggetto downloadfiles che
     // si collegherà  e scaricherà i file
