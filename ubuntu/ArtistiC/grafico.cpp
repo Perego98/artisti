@@ -78,6 +78,12 @@ QChartView * grafico::createch(){
     //creo le series
     QBarSeries *series = new QBarSeries();
 
+
+    // aggiungo i numero sul grafico
+    series->setLabelsVisible(true);
+    series->setLabelsPosition(QAbstractBarSeries::LabelsOutsideEnd);
+    set->setLabelColor(QColor(0,0,0));
+
     // aggiungo i set creati in precedenza
     series->append(set);
 

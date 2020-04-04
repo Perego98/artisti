@@ -54,6 +54,12 @@ QChartView * grafico2::createch(){
 
 
     QBarSeries *series = new QBarSeries();
+
+    // aggiungo i numero sul grafico
+    series->setLabelsVisible(true);
+    series->setLabelsPosition(QAbstractBarSeries::LabelsOutsideEnd);
+    set->setLabelColor(QColor(0,0,0));
+
     series->append(set);
     QChart *chart = new QChart();
 
